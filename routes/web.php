@@ -26,9 +26,12 @@ Route::group( ['prefix'=>'admin','middleware'=>['auth'], 'namespace'=>'Admin' ],
     //project
     Route::get('/create','ProjectNameController@create')->name('admin.project.create');
     Route::post('/store','ProjectNameController@store')->name('admin.project.store');
-    Route::get('/index','ProjectNameController@index')->name('admin.project.index');
+
+    Route::get('/projects','ProjectNameController@index')->name('admin.project.index');
+    Route::get('/projects/{project_id}','ProjectTaskController@project_details')->name('admin.projectdetails');
+    Route::post('/projects/tasks/store','ProjectTaskController@store')->name('admin.projecttask.store');
+
     //project task
     Route::get('/taskcreate','ProjectTaskController@create')->name('admin.projecttask.create');
-    Route::post('/taskstore','ProjectTaskController@store')->name('admin.projecttask.store');
-    Route::get('/taskindex','ProjectTaskController@index')->name('admin.projecttask.index');
+    // Route::get('/taskindex','ProjectTaskController@index')->name('admin.projecttask.index');
 });

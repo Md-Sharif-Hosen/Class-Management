@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProjectName;
 use App\Models\ProjectTask;
 use Illuminate\Http\Request;
 
@@ -17,15 +18,28 @@ class ProjectTaskController extends Controller
     }
     public function store(request $request)
     {
-        $data = [
-            "row1" => [
-                "number" => '',
-                "phase" => '',
-                "task" => '',
-            ]
-        ];
+        // $data = [
+        //     "row1" => [
+        //         "project_id" => '',
+        //         "number" => '',
+        //         "phase" => '',
+        //         "task" => '',
+        // // .... more on
+        //     ]
+        //     "row2" => [
+        //         "project_id" => '',
+        //         "number" => '',
+        //         "phase" => '',
+        //         "task" => '',
+        // // .... more on
+        //     ]
+        // ];
+
+        ProjectTask::where('project_id', request()->project_id)->delete();
         ProjectTask::insert($request->task_row);
         // dd(request()->all());
+        return request()->all();
+
         //function_body
         // $taskstore = new ProjectTask();
         // $taskstore->number = request()->number;
@@ -41,9 +55,11 @@ class ProjectTaskController extends Controller
         // $taskstore->save();
         // return redirect()->route('admin.projecttask.index');
     }
-    public function index()
+    public function project_details($project_id)
     {
         //function_body
-        return view('admin.project task.index');
+        $project = ProjectName::find($project_id);
+        $projectdetails = ProjectTask::where('project_id', $project_id)->get();
+        return view('admin.project task.index', compact('project', 'projectdetails', 'project_id'));
     }
 }

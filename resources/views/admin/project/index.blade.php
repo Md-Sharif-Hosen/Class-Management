@@ -26,7 +26,7 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+
                                                     <th>Title</th>
                                                     <th>Project details</th>
                                                 </tr>
@@ -34,9 +34,9 @@
                                             <tbody>
                                                 @foreach ($all_data as $item)
                                                     <tr>
-                                                        <td>{{ $item->id }}</td>
+
                                                         <td>{{ $item->title }}</td>
-                                                        
+                                                        <td><a href="{{ route('admin.projectdetails',$item->id) }}">Project Details</a></td>
 
                                                     </tr>
                                                 @endforeach
